@@ -7,15 +7,16 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
   ],
 });
-const token = 'MTE1NzY3MTA0MDk3ODI3NjM5Mw.GseOGu.MdoAKPPbFKBImWEgCetPWLxW1iZpOrayAEx7VY';
+const { token } = require('./config.json');
 
-client.on('ready', () => {
+client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
 });
 
 client.on('voiceStateUpdate', (oldState, newState) => {
-    const generalChannelID = "1157674396174008394"; //テスト
-    // const generalChannelID = "1114712975643779085"; //きも鯖
+    const { generalChannelID } = require('./config.json');
+    //1157674396174008394 テスト
+    //1114712975643779085 きも鯖
 
     if (!oldState.channel && newState.channel) {
         const embed = new EmbedBuilder()
