@@ -21,20 +21,22 @@ client.on('voiceStateUpdate', (oldState, newState) => {
     if (!oldState.channel && newState.channel) {
         const embed = new EmbedBuilder()
         .setTitle('通話が開始されました！')
-        .setDescription(`${newState.member.user.username}が、<#${newState.channel.id}>で通話を開始しました！皆さん集まりましょう！`)
+        .setDescription(`${newState.member.user.username}さんが、<#${newState.channel.id}>で通話が開始されました！皆さん集まりましょう！`)
         .setColor('#00ff00');
         client.channels.cache.get(generalChannelID).send({ embeds: [embed] });
+        console.log(`Used by ${newState.member.user.username}`);
     }
 
     if (oldState.channel && !newState.channel) {
-      const embed = new EmbedBuilder()
-        .setTitle('通話が終了しました。')
-        .setDescription(`<#${oldState.channel.id}>の通話が終了しました。お疲れ様でした。`)
-        .setColor('#ff0000');
-        client.channels.cache.get(generalChannelID).send({ embeds: [embed] });
+      if(oldState.channel.members.size === 0 ){
+        const embed = new EmbedBuilder()
+          .setTitle('通話が終了しました。')
+          .setDescription(`<#${oldState.channel.id}>で通話が終了しました。お疲れ様でした。`)
+          .setColor('#ff0000');
+          client.channels.cache.get(generalChannelID).send({ embeds: [embed] });
+      }
     }
   });
   
 
 client.login(token);
-
