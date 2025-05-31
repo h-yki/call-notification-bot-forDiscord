@@ -15,8 +15,6 @@ client.once('ready', () => {
 
 client.on('voiceStateUpdate', (oldState, newState) => {
     const { generalChannelID } = require('./config.json');
-    //1157674396174008394 テスト
-    //1114712975643779085 きも鯖
 
     if (!oldState.channel && newState.channel) {
         const embed = new EmbedBuilder()
